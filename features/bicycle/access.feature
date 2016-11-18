@@ -174,3 +174,12 @@ Feature: Bike - Access tags on ways
             | cycleway |      | no            |       | x     |
             | runway   |      |               | yes   |       |
             | cycleway |      |               | no    | x     |
+
+    @todo
+    Scenario: Bike - Bridleways when access is explicit
+        Then routability should be
+            | highway   | foot | bicycle | bicycle:forward | bothw | forw | backw |
+            | bridleway |      | yes     |                 | x     | x    | x     |
+            | bridleway |      |         | yes             |       | x    |       |
+            | bridleway | yes  |         |                 |       |      |       |
+            | bridleway |      |         |                 |       |      |       |
