@@ -54,7 +54,7 @@ std::size_t loadGraph(const char *path,
                       std::vector<extractor::QueryNode> &coordinate_list,
                       std::vector<TarjanEdge> &graph_edge_list)
 {
-    storage::io::FileReader file_reader(path, storage::io::FileReader::VerifyFingerprint);
+    storage::io::FileReader file_reader(&path, storage::io::FileReader::VerifyFingerprint);
 
     // load graph data
     std::vector<extractor::NodeBasedEdge> edge_list;
