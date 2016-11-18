@@ -61,13 +61,16 @@ NodeID loadNodesFromFile(storage::io::FileReader& file_reader,
     NodeID number_of_nodes = file_reader.ReadElementCount32();
     SimpleLogger().Write() << "Importing number_of_nodes new = " << number_of_nodes << " nodes ";
 
-    node_array.reserve(number_of_nodes);
+    node_array.resize(number_of_nodes);
 
     extractor::ExternalMemoryNode current_node;
     for (NodeID i = 0; i < number_of_nodes; ++i)
     {
         file_reader.ReadInto(&current_node, 1);
-        node_array.emplace_back(current_node.lon, current_node.lat, current_node.node_id);
+        
+        node_array[i].lon = current_node.lon;
+        node_array[i].lat = current_node.lat;
+        node_array[i].node_id = current_node.node_id;
 
         if (current_node.barrier)
         {
