@@ -21,7 +21,7 @@ struct NodeBasedEdgeData
         : weight(INVALID_EDGE_WEIGHT), duration(INVALID_EDGE_WEIGHT), edge_id(SPECIAL_NODEID),
           name_id(std::numeric_limits<unsigned>::max()), reversed(false), roundabout(false),
           circular(false), travel_mode(TRAVEL_MODE_INACCESSIBLE),
-          lane_description_id(INVALID_LANE_DESCRIPTIONID)
+          lane_description_id(INVALID_LANE_DESCRIPTIONID), way_id(0)
     {
     }
 
@@ -35,10 +35,12 @@ struct NodeBasedEdgeData
                       bool startpoint,
                       bool restricted,
                       extractor::TravelMode travel_mode,
-                      const LaneDescriptionID lane_description_id)
+                      const LaneDescriptionID lane_description_id,
+                      std::uint32_t way_id)
         : weight(weight), duration(duration), edge_id(edge_id), name_id(name_id),
           reversed(reversed), roundabout(roundabout), circular(circular), startpoint(startpoint),
-          restricted(restricted), travel_mode(travel_mode), lane_description_id(lane_description_id)
+          restricted(restricted), travel_mode(travel_mode), lane_description_id(lane_description_id),
+          way_id(way_id)
     {
     }
 
@@ -54,6 +56,7 @@ struct NodeBasedEdgeData
     extractor::TravelMode travel_mode : 4;
     LaneDescriptionID lane_description_id;
     extractor::guidance::RoadClassification road_classification;
+    std::uint32_t way_id;
 
     bool IsCompatibleTo(const NodeBasedEdgeData &other) const
     {
@@ -93,6 +96,7 @@ NodeBasedDynamicGraphFromEdges(NodeID number_of_nodes,
             output_edge.data.restricted = input_edge.restricted;
             output_edge.data.road_classification = input_edge.road_classification;
             output_edge.data.lane_description_id = input_edge.lane_description_id;
+            output_edge.data.way_id = input_edge.way_id;
 
             BOOST_ASSERT(output_edge.data.weight > 0);
             BOOST_ASSERT(output_edge.data.duration > 0);

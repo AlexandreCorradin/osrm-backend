@@ -127,6 +127,10 @@ namespace osmium {
             return m_id;
         }
 
+        uint32_t int_id() const noexcept {
+            return static_cast<uint32_t>(m_id);
+        }
+
         /// Get absolute value of the ID of this object.
         unsigned_object_id_type positive_id() const noexcept {
             return static_cast<unsigned_object_id_type>(std::abs(m_id));

@@ -74,7 +74,8 @@ struct InternalExtractorEdge
                  false, // split edge
                  TRAVEL_MODE_INACCESSIBLE,
                  guidance::TurnLaneType::empty,
-                 guidance::RoadClassification()),
+                 guidance::RoadClassification(),
+                 0),
           weight_data(), duration_data()
     {
     }
@@ -94,7 +95,8 @@ struct InternalExtractorEdge
                                    TravelMode travel_mode,
                                    LaneDescriptionID lane_description,
                                    guidance::RoadClassification road_classification,
-                                   util::Coordinate source_coordinate)
+                                   util::Coordinate source_coordinate,
+                                   uint32_t way_id)
         : result(source,
                  target,
                  name_id,
@@ -109,7 +111,8 @@ struct InternalExtractorEdge
                  is_split,
                  travel_mode,
                  lane_description,
-                 std::move(road_classification)),
+                 std::move(road_classification),
+                 way_id),
           weight_data(std::move(weight_data)), duration_data(std::move(duration_data)),
           source_coordinate(std::move(source_coordinate))
     {
@@ -142,7 +145,8 @@ struct InternalExtractorEdge
                                      TRAVEL_MODE_INACCESSIBLE,
                                      INVALID_LANE_DESCRIPTIONID,
                                      guidance::RoadClassification(),
-                                     util::Coordinate());
+                                     util::Coordinate(),
+                                     0);
     }
     static InternalExtractorEdge max_osm_value()
     {
@@ -161,7 +165,8 @@ struct InternalExtractorEdge
                                      TRAVEL_MODE_INACCESSIBLE,
                                      INVALID_LANE_DESCRIPTIONID,
                                      guidance::RoadClassification(),
-                                     util::Coordinate());
+                                     util::Coordinate(),
+                                     0);
     }
 
     static InternalExtractorEdge min_internal_value()
